@@ -7,6 +7,9 @@ import { colorType } from './colorType'
 import { sizeType } from './sizeType'
 import { reviewType } from './reviewType'
 import { blockContentType } from './blockContent'
+import { navMenuType } from './navMenu/navMenuType'
+import { navLinkType } from './navMenu/navLinkType'
+import { navItemType } from './navMenu/navItemType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -17,6 +20,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     colorType,
     sizeType,
     reviewType,
-    blockContentType
+    blockContentType,
+    navMenuType,
+    navLinkType,
+    navItemType
   ],
 }
