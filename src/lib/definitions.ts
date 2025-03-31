@@ -26,7 +26,7 @@ export type SubTitleProps = {
 export type CallToActionProps = {
     children: React.ReactNode
     href: string
-    variant: 'green' | 'brown'
+    variant: 'green' | 'brown' | 'full'
     className?: string
 }
 
