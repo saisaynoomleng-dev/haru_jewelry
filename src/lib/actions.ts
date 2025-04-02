@@ -1,4 +1,7 @@
-// calculate average rating
-// export const calculateRating = (a, b, c, d, e) => {
-//     const averageRating = a + b + c + d + e;
-// }   
+export const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    })
+}

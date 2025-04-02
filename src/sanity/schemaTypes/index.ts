@@ -10,6 +10,9 @@ import { blockContentType } from './blockContent'
 import { navMenuType } from './navMenu/navMenuType'
 import { navLinkType } from './navMenu/navLinkType'
 import { navItemType } from './navMenu/navItemType'
+import { blogType } from './blogs/blogType'
+import { authorType } from './blogs/authorType'
+
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -23,6 +26,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     blockContentType,
     navMenuType,
     navLinkType,
-    navItemType
+    navItemType,
+    blogType,
+    authorType
   ],
 }

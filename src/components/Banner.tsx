@@ -1,11 +1,12 @@
 import { BiSolidPackage, BiSupport, BiWallet } from "react-icons/bi"
+import Bounded from "./Bounded"
 
 const Banner = () => {
     return (
-        <div
+        <Bounded
             className="grid md:grid-cols-3 gap-5 p-5">
 
-            <div className="flex  items-center gap-5">
+            <div className="flex items-center gap-5">
                 <p className="relative">
                     <span className="text-fs-800 relative z-50"><BiSolidPackage />
                     </span>
@@ -14,7 +15,7 @@ const Banner = () => {
 
                 <div className="flex flex-col gap-1 p-3">
                     <p className="font-semibold">Free Shipping</p>
-                    <p className="text-slate-500 text-fs-300">Free shipping for order above $300</p>
+                    <p className="text-slate-500 text-fs-300">Free shipping over $300</p>
                 </div>
             </div>
 
@@ -43,7 +44,7 @@ const Banner = () => {
                     <p className="text-slate-500 text-fs-300">We support online all days</p>
                 </div>
             </div>
-        </div>
+        </Bounded>
     )
 }
 
