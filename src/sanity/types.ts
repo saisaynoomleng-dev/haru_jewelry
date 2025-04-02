@@ -68,6 +68,134 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Blog = {
+  _id: string;
+  _type: "blog";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  publishedAt?: string;
+  author?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "author";
+  };
+  duration?: number;
+  category?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
+export type Author = {
+  _id: string;
+  _type: "author";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  bio?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
+export type NavItem = {
+  _id: string;
+  _type: "navItem";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  url?: string;
+};
+
+export type NavLink = {
+  _id: string;
+  _type: "navLink";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  url?: string;
+  branch?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "navItem";
+  }>;
+};
+
+export type NavMenu = {
+  _id: string;
+  _type: "navMenu";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  links?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "navLink";
+  }>;
+};
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -291,7 +419,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | Review | Size | Color | Tag | Category | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Brand | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Blog | Author | NavItem | NavLink | NavMenu | BlockContent | Review | Size | Color | Tag | Category | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Brand | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PRODUCTS_QUERY
@@ -349,6 +477,108 @@ export type PRODUCT_QUERYResult = {
     name: string | null;
   }> | null;
 } | null;
+// Variable: BLOGS_QUERY
+// Query: *[_type == 'blog' && defined(slug.current)][0...3]{  title,  slug,  publishedAt,  author->{    name,  },  duration,  category,  description,  image{    asset->{      url    },    alt  } } | order(publishedAt desc)
+export type BLOGS_QUERYResult = Array<{
+  title: string | null;
+  slug: Slug | null;
+  publishedAt: string | null;
+  author: {
+    name: string | null;
+  } | null;
+  duration: number | null;
+  category: string | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+    alt: string | null;
+  } | null;
+}>;
+// Variable: BLOG_QUERY
+// Query: *[_type == 'blog' && slug.current == $slug][0]{  title,  publishedAt,  author->{    name,    image{      asset->{        url      },      alt    },    bio  },  duration,  category,  description,  image{    asset->{      url    },    alt  } }
+export type BLOG_QUERYResult = {
+  title: string | null;
+  publishedAt: string | null;
+  author: {
+    name: string | null;
+    image: {
+      asset: {
+        url: string | null;
+      } | null;
+      alt: string | null;
+    } | null;
+    bio: string | null;
+  } | null;
+  duration: number | null;
+  category: string | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+    alt: string | null;
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -356,5 +586,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == 'product'\n   && defined(slug.current)][0...9]{\n    name,\n    slug,\n    images[]{\n      asset->{\n        url\n      }\n    },\n    price,\n    brand->{\n      name\n    },\n    discount,\n    instock,\n    reviews[]->{\n      rating\n    }\n   } | order(name) ": PRODUCTS_QUERYResult;
     "*[_type == 'product'\n && slug.current == $slug][0]{\n  name,\n  category[]->{\n    name\n  },\n  reviews[]->{\n    title,\n    rating,\n    description},\n  price,\n  discount,\n  warranty,\n  tags[]->{\n    name\n  },\n  description,\n  instock,\n  images[]{\n    asset->{\n      url\n    },\n  },\n  brand->{\n    name\n  },\n  color[]->{\n    name\n  },\n  size[]->{\n    name\n  }\n }": PRODUCT_QUERYResult;
+    "*[_type == 'blog'\n && defined(slug.current)][0...3]{\n  title,\n  slug,\n  publishedAt,\n  author->{\n    name,\n  },\n  duration,\n  category,\n  description,\n  image{\n    asset->{\n      url\n    },\n    alt\n  }\n } | order(publishedAt desc)": BLOGS_QUERYResult;
+    "*[_type == 'blog'\n && slug.current == $slug][0]{\n  title,\n  publishedAt,\n  author->{\n    name,\n    image{\n      asset->{\n        url\n      },\n      alt\n    },\n    bio\n  },\n  duration,\n  category,\n  description,\n  image{\n    asset->{\n      url\n    },\n    alt\n  }\n } ": BLOG_QUERYResult;
   }
 }
